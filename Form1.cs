@@ -18,6 +18,7 @@ namespace House
             CreateObjects();
             MoveToANewLocation(livingRoom);
         }
+        
         Location currentLocation;
         Room diningRoom;
         RoomWithDoor livingRoom;
@@ -25,14 +26,15 @@ namespace House
         Outside garden;
         OutsideWithDoor frontYard;
         OutsideWithDoor backYard;
+
         private void CreateObjects()
         {
-            diningRoom = new Room("diningRoom", "crystalChandelier");
-            livingRoom = new RoomWithDoor("livingRoom", "antiqueCarpet", "oak door with brass handle", frontYard);
-            kitchen = new RoomWithDoor("kitchen", "stainless stell stove", "gate", backYard);
+            diningRoom = new Room("diningRoom", "chrystal chandelier");
+            livingRoom = new RoomWithDoor("livingRoom", "antique carpet", "oak door");
+            kitchen = new RoomWithDoor("kitchen", "stainless steal stove", "gate");
             garden = new Outside("garden", false);
-            frontYard = new OutsideWithDoor("frontYard", false, "oak door with brass handle", livingRoom);
-            backYard = new OutsideWithDoor("backYard", true, "gate", kitchen);
+            frontYard = new OutsideWithDoor("frontYard", false, "oak door");
+            backYard = new OutsideWithDoor("backYard", true, "gate");
 
             diningRoom.Exits = new Location[] { livingRoom, kitchen };
             livingRoom.Exits = new Location[] { diningRoom };
@@ -41,14 +43,15 @@ namespace House
             frontYard.Exits = new Location[] { garden, backYard };
             backYard.Exits = new Location[] { garden, frontYard };
 
-            //livingRoom.DoorLocation = frontYard;
-            //frontYard.DoorLocation = livingRoom;
-            //kitchen.DoorLocation = backYard;
-            //backYard.DoorLocation = kitchen;
+            livingRoom.DoorLocation = frontYard;
+            frontYard.DoorLocation = livingRoom;
+            kitchen.DoorLocation = backYard;
+            backYard.DoorLocation = kitchen;
         }
-        private void MoveToANewLocation(Location newLocation)
+
+        private void MoveToANewLocation(Location location)
         {
-            currentLocation = newLocation;
+            currentLocation = location;
             exits.Items.Clear();
             for (int i = 0; i < currentLocation.Exits.Length; i++)
             {
@@ -65,6 +68,7 @@ namespace House
                 goThroughTheDoor.Visible = false;
             }
         }
+
         private void goHere_Click(object sender, EventArgs e)
         {
             MoveToANewLocation(currentLocation.Exits[exits.SelectedIndex]);
@@ -72,8 +76,11 @@ namespace House
 
         private void goThroughTheDoor_Click(object sender, EventArgs e)
         {
-            IHasExteriorDoor hasDoor = currentLocation as IHasExteriorDoor;
-            MoveToANewLocation(hasDoor.DoorLocation);
+            if (currentLocation is IHasExteriorDoor)
+            {
+                IHasExteriorDoor newLocation = currentLocation as IHasExteriorDoor;
+                MoveToANewLocation(newLocation.DoorLocation);
+            }
         }
     }
 }

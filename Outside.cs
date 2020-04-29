@@ -12,12 +12,11 @@ namespace House
         {
             this.hot = hot;
         }
-        private bool hot;
+        bool hot;
         public override string Description
         {
             get
             {
-                //string NewDescription = base.Description;
                 if (hot == true)
                 {
                     return base.Description + " It's very hot here.";

@@ -12,12 +12,12 @@ namespace House
         {
             this.decoration = decoration;
         }
-        private string decoration;
+        string decoration;
         public override string Description
         {
             get
-            {                
-                return base.Description + "Here you see " + decoration + ".";
+            {
+                return base.Description + " Here you see " + decoration + ".";
             }
         }
     }

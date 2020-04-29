@@ -8,12 +8,14 @@ namespace House
 {
     abstract class Location
     {
-        public Location (string name)
+        public Location(string name)
         {
             this.name = name;
         }
-        public Location[] Exits;
         public string name { get; }
+
+        public Location[] Exits;
+
         public virtual string Description
         {
             get
