@@ -17,7 +17,7 @@ namespace House
         {
             get
             {
-                if (hot == true)
+                if (hot)
                 {
                     return base.Description + " It's very hot here.";
                 }

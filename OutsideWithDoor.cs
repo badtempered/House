@@ -18,7 +18,7 @@ namespace House
         {
             get
             {
-                return base.Description + " There is " + DoorDescription + ".";
+                return base.Description + "\nThere is " + DoorDescription + ".";
             }
         }
     }
